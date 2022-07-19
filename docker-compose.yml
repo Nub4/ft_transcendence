@@ -1,0 +1,77 @@
+version: "3"
+
+services:
+  postgres:
+    container_name: postgres_2
+    image: postgres:latest
+    ports:
+      - "5432:5432"
+    env_file:
+      - ./backend/.env
+    restart: always
+    networks:
+      - postgres
+
+networks:
+  postgres:
+    driver: bridge
+
+
+# version: '3.8'
+# services:
+#     backend:
+#         container_name: backend
+#         image: backend_transcendence
+#         build:
+#             context: ./backend
+#             dockerfile: ./dockerfile
+#             target: development
+#         volumes:
+#             - .:/backend/app/
+#             - /backend/app/node_modules        
+#         depends_on:
+#             - postgres
+#         environment:
+#             DATABASE_URL: postgres://dbadmin:dbadmin@postgres:5432/db_transc
+#             NODE_ENV: development
+#             PORT: 3000
+#         ports:
+#             - "3000:3000" # for communication
+#             - "9229:9229" # for debugging      
+#         networks:
+#             - nesjs-network
+#         restart: unless-stopped
+#         command: npm run start:debug    
+#         env_file: 
+#             - backend/.env
+#     postgres:
+#         container_name: postgres
+#         image: postgres:10.4
+#         ports:
+#             - "35000:5432"
+#         environment:
+#             POSTGRES_USER: dbadmin
+#             POSTGRES_PASSWORD: dbadmin
+#             POSTGRES_DB: db_transc
+#             PG_DATA: /var/lib/postgresql/data
+#         volumes:
+#             - pgdata:/var/lib/postgresql/data  
+#         networks:
+#             - nesjs-network
+#         restart: unless-stopped            
+#     frontend:
+#         container_name: frontend
+#         build:
+#             context: ./frontend
+#             dockerfile: ./dockerfile
+#         volumes:
+#             - '.:/frontend/app'
+#             - '/frontend/app/node_modules'
+#         ports:
+#             - 3001:3000
+#         environment:
+#             - CHOKIDAR_USEPOLLING=true
+# networks:
+#     nesjs-network:        
+# volumes:
+#     pgdata:  

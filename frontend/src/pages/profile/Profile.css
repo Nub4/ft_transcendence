@@ -1,0 +1,76 @@
+.user-profile{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    width: 100%;
+    height: 100%;
+    background-color: #fafafa;
+  }
+  .user-name{
+      width: 20%;
+      align-content: center;
+      grid-template-columns: 1fr 1fr;
+    font-size: 1rem;
+    font-weight: bold;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+  }
+  
+  .profile-picture {
+      height: 6em;
+      width: 6em;
+      border-radius: 50%;
+      object-fit: cover;
+      background: lightgray;
+  }
+  
+.status-online {
+    height: 1em;
+    width: 1em;
+    color: green;
+}
+
+.status-offline {
+    height: 1em;
+    width: 1em;
+    color: red;
+}
+
+.status-playing {
+    height: 1em;
+    width: 1em;
+    color: yellow;
+}
+
+.stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    grid-auto-rows: minmax(100px, auto);
+  }
+
+  .gamesWon {
+    font-size: 1.5rem;
+    font-weight: bold;
+    background-color: rgba(0, 255, 0, 0.4) ;
+  }
+
+  .gamesLost {
+    font-size: 1.5rem;
+    font-weight: bold;
+    background-color: rgba(255, 0, 0, 0.4) ;
+  }
+
+  .positive {
+    font-size: 1.5rem;
+    font-weight: bold;
+    background-color: rgba(0, 255, 0, 0.4) ;
+  }
+
+    .negative {
+        font-size: 1.5rem;
+        font-weight: bold;
+        background-color: rgba(255, 0, 0, 0.4) ;
+    }
