@@ -1,4 +1,4 @@
-# ft_transcendence backend
+# ft_transcendence (Almost ready)
 
 ## database and pgadmin
 
