@@ -1,6 +1,6 @@
 # ft_transcendence (Almost ready)
 
-## database and pgadmin
+## database, backend and frontend
 
 Our backend app needs a postgreSQL database to work.
 
