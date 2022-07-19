@@ -19,11 +19,14 @@ export class MatchService
     {
         const map1 = new Map();
         const allPlayers = await this.userRepository.find();
-        for (const player of allPlayers)
-            map1.set(player.id, player.wins - player.losses);
-        const mapSort1 = new Map([...map1.entries()].sort((a, b) => b[1] - a[1]));
-        const index = mapSort1.get(user.id);
-        user.rank = index;
+        const array = [];
+        for (var player of allPlayers)
+            array.push([player, (player.wins-player.losses)]);
+        array.sort(function(a, b) {
+            return b[1] - a[1];
+        });
+        const index = array.findIndex(e => e[0].id === user.id);
+        user.rank = index + 1;
         await this.userRepository.save(user);
     }
 

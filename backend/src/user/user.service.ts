@@ -31,7 +31,22 @@ export class UserService
             take,
             skip: (page - 1) * take
         });
-        return { data: users, meta: { total, page, last_page: Math.ceil(total / take)}};
+        const array = [];
+        for (var user of users)
+          array.push([user, (user.wins-user.losses)]);
+        array.sort(function(a, b) {
+          return b[1] - a[1];
+        });
+        const newUsers: UserEntity[] = [];
+        var i = 0;
+        for (var temp of array)
+        {
+          newUsers.push(temp[0]);
+          newUsers[i].rank = i + 1;
+          await this.userRepository.save(newUsers[i]);
+          i++;
+        }
+        return { data: newUsers, meta: { total, page, last_page: Math.ceil(total / take)}};
     }
 
     async getAllUsers()
