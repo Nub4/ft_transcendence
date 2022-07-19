@@ -1,79 +1,56 @@
-# ft_transcendence backend
+# ft_transcendence (Almost ready)
 
-## database and pgadmin
+## database, backend and frontend
 
-Our backend app needs a postgreSQL database to work and pgAdmin will help us to manage this database.
+Our backend app needs a postgreSQL database to work.
 
 To launch them, we can use this ```docker-compose.yml``` file :
 
 ```
 version: '3'
+
 services:
-    postgres:
-        container_name: postgres
-        image: 'postgres:latest'
-        environment:
-            POSTGRES_USER: pg1
-            POSTGRES_PASSWORD: pg2
-            POSTGRES_DB: pg3
-        ports:
-            - '5432:5432'
-        restart: always
-    pgadmin:
-        container_name: pgadmin4_container
-        image: dpage/pgadmin4
-        restart: always
-        environment:
-            PGADMIN_DEFAULT_EMAIL: admin@admin.com
-            PGADMIN_DEFAULT_PASSWORD: root
-        ports:
-            - "5050:80"
+  postgres:
+    container_name: postgres_2
+    image: postgres:latest
+    ports:
+      - "5432:5432"
+    env_file:
+      - ./backend/.env
+    restart: always
+    networks:
+      - postgres
+
+networks:
+  postgres:
+    driver: bridge
 ```
 In the same directory, Use the command :
 
 ```
-docker-compose down && docker-compose up --build
+docker-compose up
 ```
-In another terminal, find the ID of our postgres container with ```docker ps``` and its IP address with this command, replacing XXX with the container ID:
+In another terminal, go to backend directory, use the command :
 ```
-docker inspect XXX | grep IPAddress
-```
-
-Then go to localhost:5050, log in with email admin@admin.com and password root
-
-Right click on Servers -> Register -> Server.
-
-Choose any name then go to Connection tab.
-
-Host name: IP address of postgres container
-
-Port: 5432
-
-Username: pg1
-
-Password: pg2
-
-Click Save.
-
-Once our app will be launched, we will be able to add, modify or delete elements in our tables.
-
-## Backend application
-
-To launch the app :
-```
-git clone git@github.com:hmesnard/ft_transcendence.git
-cd ft_transcendence/backend
 npm install
-nest start --watch
+npm run start:dev
 ```
+In third terminal, go to frontend directory, use the command :
+```
+npm install
+npm start (say "Y" to make port 3001 because backend is working with port 3000)
+```
+Go to website localhost:3001/singin, ft_transcendence project works with Intra42 login, so after clicking "Signin", it redirects you to Intra42 login page. After singing in Intra, you will be redirected to ft_transcendence website.
 
-localhost:3000 should display a Hello World.
-
-Now, if you reload pgAdmin, you should be able to access tables through Servers -> The name you have chosen -> Databases -> pg3 -> Schemas -> public -> Tables.
-
-Then see their content by right clicking on them -> View/Edit Data -> All Rows.
-
-You can edit elements as well. Click on save to take changes into consideration.
+If you want to see database, take a new terminal window and use next commands :
+```
+docker container ls (to see list of docker containers)
+docker exec -it <first_3_charachters_from_container_id> /bin/bash
+(now you are inside container)
+psql postgres3 postgres1;
+\c postgres3; (connecting to database postgres3)
+\dt (to see all the tables from database)
+SELECT * FROM public.<table_name>; (to see data from that table)
 
 ## Authentication flow
 
