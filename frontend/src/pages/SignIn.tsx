@@ -2,6 +2,9 @@ import axios from "axios";
 import React, { SyntheticEvent, useEffect, useState } from "react";
 import { Navigate } from "react-router";
 import background from "../assets/the_pong.png";
+import 'bootstrap/dist/css/bootstrap.min.css';
+import { Button, Card, Table } from 'react-bootstrap';
+import { transform } from "typescript";
 
 const SignIn = () =>
 {
@@ -30,16 +33,17 @@ const SignIn = () =>
     }
 
     return(
-        <div style={{ backgroundImage: `url(${background})` }}>
-            <div>
+        <Card bg="dark">
+            <Card.Img src={background} />
+            <Card.Body>
+            <div className="col-md-12 text-center">
             <form onSubmit={submit}>
-                <button style={{
-                    margin: '40vh 30vw', width: '300px', height: '200px',
-                    backgroundColor: 'white', color: 'black', border: '2px solid black'
-                    }} type="submit"><h1><b><mark>42 SignIn</mark></b></h1></button>
+                <Button style={{ width: '200px', height: '100px', backgroundColor: 'white', color: 'black', border: '2px solid black' }}
+                type="submit"><h1><b><mark>42 SignIn</mark></b></h1></Button>
             </form>
             </div>
-        </div>
+            </Card.Body>
+        </Card>
     );
 }
 
