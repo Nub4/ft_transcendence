@@ -37,7 +37,7 @@ const SignIn = () =>
             <Card.Body>
             <div className="col-md-12 text-center">
             <form onSubmit={submit}>
-                <Button style={{ width: '200px', height: '100px', backgroundColor: 'white', color: 'black', border: '2px solid black' }}
+                <Button style={{ width: '250px', height: '100px', backgroundColor: 'white', color: 'black', border: '2px solid black' }}
                 type="submit"><h1><b><mark>42 SignIn</mark></b></h1></Button>
             </form>
             </div>
