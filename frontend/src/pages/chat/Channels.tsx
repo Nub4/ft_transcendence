@@ -46,6 +46,13 @@ const Channels = ({socket, channels, lastPage}: Props) =>
     await axios.delete(`chat/leave/${channelId}`);
   }
 
+  const deleteChannel = async (e: SyntheticEvent, channelId: number) =>
+  {
+    e.preventDefault();
+    await axios.delete(`chat/delete/${channelId}`);
+    socket?.emit('getChannelsToServer', page);
+  }
+
   if (place === true)
   {
     useEffect(() => {
@@ -114,9 +121,7 @@ const Channels = ({socket, channels, lastPage}: Props) =>
                         <button onClick={e => leave(e, channel.id)} type="submit">Leave</button>
                     </td>
                     <td>
-                      {/* <form onSubmit={join}> */}
-                        <button type="submit">Delete</button>
-                      {/* </form> */}
+                        <button onClick={e => deleteChannel(e, channel.id)} type="submit">Delete</button>
                     </td>
                   </tr>  
                 )
