@@ -51,6 +51,7 @@ psql postgres3 postgres1;
 \c postgres3; (connecting to database postgres3)
 \dt (to see all the tables from database)
 SELECT * FROM public.<table_name>; (to see data from that table)
+```
 
 ## Authentication flow
 
