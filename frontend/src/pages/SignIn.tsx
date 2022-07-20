@@ -33,7 +33,7 @@ const SignIn = () =>
 
     return(
         <Card bg="dark">
-            <Card.Img src={background} />
+            <Card.Img src={background} height={400} />
             <Card.Body>
             <div className="col-md-12 text-center">
             <form onSubmit={submit}>
