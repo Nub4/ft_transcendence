@@ -3,8 +3,7 @@ import React, { SyntheticEvent, useEffect, useState } from "react";
 import { Navigate } from "react-router";
 import background from "../assets/the_pong.png";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Button, Card, Table } from 'react-bootstrap';
-import { transform } from "typescript";
+import { Button, Card } from 'react-bootstrap';
 
 const SignIn = () =>
 {
