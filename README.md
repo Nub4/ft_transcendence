@@ -1,4 +1,4 @@
-# ft_transcendence
+# ft_transcendence (Last project from 42 common core)
 
 You need to add ```.env``` file to same directory where ```docker-compose.yml``` file is :
 
