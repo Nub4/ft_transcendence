@@ -63,7 +63,6 @@ const Settings = ({socket}: Props) => {
   const handleUsernameSubmit = async(event: any) => {
     event.preventDefault();
 
-    console.log(!validName.test(username));
     if (!validName.test(username)) {
       window.alert("Invalid format for username: only alphanumeric characters and dashes are allowed");
       return;

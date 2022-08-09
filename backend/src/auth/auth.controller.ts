@@ -30,7 +30,7 @@ export class AuthController {
 	async ftAuthReturn(@User() user42, @Res({passthrough: true}) res)
 	{
 		const { user, jwt } = await this.authService.treatFtOauth(user42);
-        res.cookie('access_token', jwt);//, {sameSite: 'lax' ,secure: true, expires: new Date(Date.now() + 604800000)});
+        res.cookie('access_token', jwt);
 		return ;
 	}
 
@@ -44,8 +44,8 @@ export class AuthController {
 			throw new UnauthorizedException('Wrong authentication code');
     	}
 		const jwt = this.authService.treatTfa(user.id, true);
-		res.clearCookie('access_token', {sameSite: 'lax'});//, expires: new Date(Date.now() + 100)});
-		res.cookie('access_token', jwt, {sameSite: 'lax'});// ,secure: true, expires: new Date(Date.now() + 604800000)});
+		res.clearCookie('access_token', {sameSite: 'lax'});
+		res.cookie('access_token', jwt, {sameSite: 'lax'});
 		return user;
   	}
 }

@@ -95,7 +95,6 @@ export default class UserProfile extends Component<Props, State> {
     if(this.state.chatName != '')
     {
       this.state.socket?.emit('joinToServer', {name: this.state.chatName});
-        // this.state.socket?.emit('joinToServer', { `direct_with_${this.state.user.id}_${this.state.whichFriend} `});
       return <Navigate to={`/chat?chatId=${this.state.chatName}`}/>
     }
     return (

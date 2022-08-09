@@ -72,16 +72,6 @@ const Game = ({socket, games, invites, gameWinner}: Props) =>
             setPlace("join");
             socket?.emit('JoinQueueToServer');
         }
-        //     setPlace("join");
-        // socket?.emit('JoinQueueToServer');
-        // var temp: boolean = true;
-        // for (var i = 0; i < games.length; i++)
-        // {
-        //     if (name === games[i].name)
-        //         temp = false;
-        // }
-        // if (temp === true)
-        //     setPlace("queue");
     }
 
     const back = async (e: SyntheticEvent) => {
@@ -107,10 +97,6 @@ const Game = ({socket, games, invites, gameWinner}: Props) =>
 
     if (place === "matches_list")
     {
-        // useEffect(() => {
-        //     socket?.emit('getGamesToServer');
-        // } , [socket]);
-
         return(
             <Wrapper>
                 <Card bg="light">

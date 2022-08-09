@@ -12,8 +12,6 @@ async function bootstrap() {
   app.useGlobalPipes(new ValidationPipe({ whitelist: true, forbidNonWhitelisted: true }));
   
   const cors = require('cors');
-  // require('dotenv').config();
-  // console.logprocess.env.JWT_SECRET);
   const corsOptions = {
     origin: ['http://' + process.env.DB_HOST + ':3000', 'http://' + process.env.DB_HOST + ':3001', 'http://' + process.env.DB_HOST + ':3002'],
     credentials: true,

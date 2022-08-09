@@ -9,8 +9,6 @@ import { GameModule } from './game/game.module';
 import { AppGateway } from './app.gateway';
 import { getEnvPath } from './common/helper/env.helper';
 
-// const envFilePath: string = getEnvPath(`${__dirname}/common/envs/`);
-
 @Module({
   imports: [
     ConfigModule.forRoot({envFilePath: '../.env', isGlobal: true }),

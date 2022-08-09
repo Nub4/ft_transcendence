@@ -106,7 +106,6 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/game" element={<Game socket={socket} games={games} invites={invites} gameWinner={gameWinner} />}></Route>
-          {/* <Route path="/" element={<Profile socket={socket}/>}></Route> */}
           <Route path="/profile"  element={<Profile socket={socket} key={2}/>}></Route>
           <Route path="/profile/settings" element={<Settings socket={socket}/>}></Route>
           <Route path="/users" element={<Users />}></Route>

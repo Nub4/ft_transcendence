@@ -26,7 +26,7 @@ export class UserService
         try {
           user = await this.userRepository.save(user);
         } catch (e) {
-          throw new ConflictException('Username must be unique'); //probably other possible errors
+          throw new ConflictException('Username must be unique');
         }
         return user;
     }
@@ -84,7 +84,6 @@ export class UserService
 
     async setTfaSecret(secret: string, user: UserEntity)
     {
-      // user.tfaSecret = secret;	
       return this.userRepository.update(user.id, {tfaSecret: secret});
     }
 
@@ -142,8 +141,6 @@ export class UserService
     updateStatus(user: UserEntity, status: UserStatus)
     {
       this.userRepository.update(user.id, {status: status});
-      // user.status = status
-      // this.userRepository.save(user);
     }
 
     async requestFriend(user: UserEntity, id: number)
@@ -189,7 +186,6 @@ export class UserService
                 );  `,
           [id],
         );
-        //return await this.userRepository.createQueryBuilder('user').leftJoinAndSelect('user.friends', 'user').getMany();
     }
 
     async getRequestedByUsers(id): Promise<UserEntity[]>

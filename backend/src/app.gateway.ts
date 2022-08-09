@@ -194,7 +194,6 @@ export class AppGateway implements OnGatewayInit, OnGatewayConnection, OnGateway
       
       const user = client.data.user;
       await this.chatService.joinChannel(channelData, user);
-      // const user2 = await this.authService.getUserFromSocket(client);
       client.join(channelData.name);
       client.data.room = channelData.name;
       const chatUsers = [];
@@ -345,12 +344,6 @@ export class AppGateway implements OnGatewayInit, OnGatewayConnection, OnGateway
     try
     {
       const user = client.data.user;
-      // let index = this.games.findIndex(e => e.players[0].player.id === user.id);
-      // let index2 = this.games.findIndex(e => e.players[1].player.id === user.id);
-      // if (index !== -1 || index2 !== -1)
-      // {
-      //   return ;
-      // }
       const index3 = this.queue.findIndex(e => e.id === user.id);
       if (index3 !== -1)
       {
@@ -405,9 +398,7 @@ export class AppGateway implements OnGatewayInit, OnGatewayConnection, OnGateway
       const user = client.data.user;
       // user joins to game as a spectator
       client.join(data.room);
-      // send this only to spectator
       client.emit('newSpectatorToClient', { username: user.username, room: data.room });
-      // this.wss.to(data.room).emit('newSpectatorToClient', { username: user.username, room: data.room });
     }
     catch { throw new WsException('Something went wrong'); }
   }
@@ -491,14 +482,10 @@ export class AppGateway implements OnGatewayInit, OnGatewayConnection, OnGateway
     const index = this.games.findIndex(e => e.id === game.id);
     this.games.splice(index, 1);
     this.wss.emit('getGamesToClient', gameNames);
-    // this.wss.to(game.name).emit('gameStartsToClient', null);
     setTimeout(() => {
       this.wss.to(game.name).emit('gameEndToClient', '');
       this.wss.to(game.name).emit('gameStartsToClient', null);
-    // players leaves from gameroom and game has been deleted from game array
-    // setTimeout(() => {
       this.wss.to(game.name).socketsLeave(game.name);
-      
     }, 2000);
     
   }
@@ -557,7 +544,6 @@ export class AppGateway implements OnGatewayInit, OnGatewayConnection, OnGateway
     }, 5000);
     game.ball.vy = 0;
     game.ball.vx = 1;
-    // game.ball = this.gameService.setRandomBallDirection(game, Math.floor(Math.random() * 2) + 1);
     this.games.push(game);
     // create game loop with 60fps
     game.intervalId = setInterval(async () => 
@@ -574,7 +560,6 @@ export class AppGateway implements OnGatewayInit, OnGatewayConnection, OnGateway
             pause = false;
             game.ball.vy = 0;
             game.ball.vx = 1;
-            // game.ball = this.gameService.setRandomBallDirection(game, Math.floor(Math.random() * 2) + 1);
           }, 1000);
           if (game.finished === true)
             this.endGame(game);
@@ -582,7 +567,7 @@ export class AppGateway implements OnGatewayInit, OnGatewayConnection, OnGateway
       }
       this.sendGameUpdate(game);
       game.sounds = this.gameService.initSound();
-    }, 16); // change it to 16 later
+    }, 16);
   }
 
   sendGameUpdate(game: Game)

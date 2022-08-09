@@ -59,8 +59,6 @@ const Channels = ({socket, channels, lastPage}: Props) =>
     e.preventDefault();
     setPopupMessage("");
 
-    console.log(name);
-    console.log(validName.test(name));
     if (!validName.test(name)) {
       window.alert("Invalid format for channel name");
       return;
