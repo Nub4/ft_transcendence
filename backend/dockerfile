@@ -1,0 +1,40 @@
+FROM node:18.3.0-alpine As development
+
+# Create app directory, inside our container
+RUN mkdir /app
+WORKDIR /app/
+
+# Install app dependencies
+# A wildcard is used to ensure both package.json AND package-lock.json are copied
+# where available (npm@5+)
+COPY ./package.json .
+COPY ./package-lock.json .
+
+RUN npm install -g npm@8
+RUN npm install --only=development
+# If you are building your code for production
+# RUN npm ci --only=production
+
+# Bundle app source
+COPY . .
+
+RUN npm install -g npm@8
+RUN npm run build
+
+FROM node:18.3.0-alpine as production
+
+ARG NODE_ENV=production
+ENV NODE_ENV=${NODE_ENV}
+
+WORKDIR /app/
+
+COPY ./package.json /app/
+COPY ./package-lock.json /app/
+
+RUN npm install --only=production
+
+COPY ./ /app/
+
+COPY --from=development /app/dist /app/dist
+
+CMD [ "node", "dist/main" ]

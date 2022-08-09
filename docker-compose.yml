@@ -1,0 +1,60 @@
+version: '3.8'
+services:
+  backend:
+    container_name: backend
+    image: backend_transcendence
+    build:
+      context: ./backend
+      dockerfile: ./dockerfile
+      target: $NODE_ENV
+    volumes:
+      - '.:/backend/app/'
+      - '/backend/app/node_modules'
+    depends_on:
+      - postgres
+    environment:
+      DATABASE_URL: $DATABASE_URL
+      NODE_ENV: $NODE_ENV
+      PORT: $PORT
+    ports:
+      - "3000:3000" # for communication
+      - "9229:9229" # for debugging
+    networks:
+      - nestjs-network
+    restart: unless-stopped
+    command: npm run start:prod
+    env_file:
+      - .env
+  postgres:
+    container_name: postgres
+    image: postgres:latest
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: $POSTGRES_USER
+      POSTGRES_PASSWORD: $POSTGRES_PASSWORD
+      POSTGRES_DB: $POSTGRES_DB
+      PG_DATA: $PG_DATA
+    volumes:
+      - pgdata:$PG_DATA
+    networks:
+      - nestjs-network
+    restart: unless-stopped
+  frontend:
+    container_name: frontend
+    build:
+      context: ./frontend
+      dockerfile: ./dockerfile
+    volumes:
+      - '.:/frontend/app'
+      - '/frontend/app/node_modules'
+    ports:
+      - 3001:3000
+    environment:
+      - CHOKIDAR_USEPOLLING=$CHOKIDAR_USEPOLLING
+      - WDS_SOCKET_PORT=$WDS_SOCKET_PORT
+
+networks:
+  nestjs-network:
+volumes:
+  pgdata:

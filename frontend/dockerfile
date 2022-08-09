@@ -1,0 +1,26 @@
+# pull official base image
+FROM node:18.3.0-alpine
+
+# set working directory
+RUN mkdir /app/
+WORKDIR /app/
+
+# add `/app/node_modules/.bin` to $PATH
+ENV PATH /app/node_modules/.bin:$PATH
+
+# install app dependencies
+COPY ./package.json ./
+COPY ./package-lock.json ./
+RUN npm install -g npm@8
+run npm install -g serve
+RUN npm install --silent
+RUN npm install react-scripts@3.4.1 -g --silent
+COPY ./ ./
+
+run npm run build
+
+
+# add app
+
+# start app
+CMD ["serve", "-s", "build", "-l", "3000"]
